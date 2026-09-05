@@ -34,7 +34,7 @@ npx playwright show-report
 
 ## Known CI limitation
 
-`tests/login.spec.ts` currently fails when run in the GitHub Actions workflow (`.github/workflows/playwright.yml`). Cloudflare's bot-verification challenge blocks GitHub-hosted runners' IP addresses on `practicesoftwaretesting.com`, so the site never loads past the "Performing security verification" page — the login flow itself is not broken. The test passes reliably when run locally.
+Any test that visits `practicesoftwaretesting.com` (not just `tests/login.spec.ts`) currently fails when run in the GitHub Actions workflow (`.github/workflows/playwright.yml`). Cloudflare's bot-verification challenge blocks GitHub-hosted runners' IP addresses site-wide, so pages never load past the "Performing security verification" screen — this happens on the very first request, regardless of which page or flow the test targets. Tests pass reliably when run locally, and tests against other domains (e.g. `tests/example.spec.ts` against `playwright.dev`) are unaffected.
 
 This is an IP-reputation-based block, not something fixable via retries, timeouts, or workflow configuration. Running the workflow on a self-hosted runner (with a normal, non-data-center IP) would resolve it, but requires maintaining that runner.
 
