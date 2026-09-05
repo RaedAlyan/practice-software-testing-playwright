@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('login test', async ({ page }) => {
+test('login test', { tag: '@practicesoftwaretesting' }, async ({ page }) => {
   await page.goto('https://practicesoftwaretesting.com/');
   await page.getByTestId('nav-sign-in').click();
   await page.getByTestId('email').fill('admin@practicesoftwaretesting.com');
